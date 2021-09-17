@@ -15,8 +15,9 @@ $(function () {
                 //console.log()
                 var Chp3 = Chp.padStart(3, "0")
                 var src = Audio_Bible_Struct.findAudioUrlFolderPath(Bk) + Chp3 + ".m4a"
-                tab += `<a src='${src}' title='${Bk}${Chp}:${Vrs} ${relativePosi}' relativePosi=${relativePosi}>${Vrs}</a>, `;
+                tab += `<a src='${src}' title='${Bk}${Chp}:${Vrs} ${relativePosi}' relativePosi=${relativePosi}> ${Vrs}</a>,`;
             }
+            tab = tab.replace(/,$/,"")
             tab += "</td></tr>"
         }
     }
@@ -33,14 +34,15 @@ $(function () {
             gvObj.src = audsrc
             //gvObj.play()
             gvObj.pause()
+            setTimeout(function () {
+                var maxlen = gvObj.duration;//(audio len in seconds)
+                console.log("maxlen", maxlen)
+                gvObj.currentTime = maxlen * parseFloat(relativePosi)
+                gvObj.play()
+                console.log(audsrc)
+            },100)
         },0)
-        setTimeout(function () {
-            var maxlen = gvObj.duration;//(audio len in seconds)
-            console.log("maxlen", maxlen)
-            gvObj.currentTime = maxlen * parseFloat(relativePosi)
-            gvObj.play()
-            console.log(audsrc)
-        },1000)
+        
         
 
         //
