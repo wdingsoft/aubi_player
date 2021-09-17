@@ -131,6 +131,10 @@ function hhmmss2input(_THIS) {
 function speedup(fval) {
 	gvObj.playbackRate += fval;
 	$("#speed").text(gvObj.playbackRate);
+
+
+	var len= gvObj.duration;//(audio len in seconds)
+	console.log("audio len:",len, Util.convert_seconds_to_hhmmss(len))
 }
 
 $(function () {
