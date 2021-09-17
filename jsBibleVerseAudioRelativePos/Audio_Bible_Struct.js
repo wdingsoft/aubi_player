@@ -159,7 +159,8 @@ const Audio_Bible_File_Organ = {
 
 
 var Audio_Bible_Struct = {
-    findAudioUrlFolderPath: function (BkCode) {
+    findAudioUrlFolderPath: function (BkCode, Chp) {
+        var Chp3 = Chp.padStart(3, "0")
         //https://wdingsoft.github.io/aubiZondervan_OT_FiveMoses/audio/01_Genesis_001.m4a
         const surl = "https://wdingsoft.github.io"
         const sheader = "aubiZondervan"
@@ -173,7 +174,7 @@ var Audio_Bible_Struct = {
                         var BkIdx2 = BkIdx.toString().padStart(2, "0")
                         var folderpath = `${surl}/${sheader}_${Test}_${FolderName}/audio/${BkIdx2}_${audioName}_`
                         console.log("folderpath=", folderpath)
-                        return folderpath
+                        return folderpath + Chp3 + ".m4a"
                     }
                 }
             }

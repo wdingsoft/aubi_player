@@ -14,7 +14,7 @@ $(function () {
                 var relativePosi = BibleObj[Bk][Chp][Vrs]
                 //console.log()
                 var Chp3 = Chp.padStart(3, "0")
-                var src = Audio_Bible_Struct.findAudioUrlFolderPath(Bk) + Chp3 + ".m4a"
+                var src = Audio_Bible_Struct.findAudioUrlFolderPath(Bk, Chp) 
                 var bcv = `${Bk}${Chp}:${Vrs}`
                 
                 tab += `<a src='${src}' title='${bcv} ${relativePosi}' relativePosi=${relativePosi}> ${Vrs}</a>,`;
@@ -41,11 +41,15 @@ $(function () {
             gvObj.pause()
             setTimeout(function () {
                 var maxlen = gvObj.duration;//(audio len in seconds)
+                if(!maxlen){
+                    alert("try again")
+                    return;
+                }
                 console.log("maxlen", maxlen)
                 gvObj.currentTime = maxlen * parseFloat(relativePosi)
                 gvObj.play()
                 console.log(audsrc)
-            },100)
+            },500)
         },0)
         
         
