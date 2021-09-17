@@ -15,7 +15,9 @@ $(function () {
                 //console.log()
                 var Chp3 = Chp.padStart(3, "0")
                 var src = Audio_Bible_Struct.findAudioUrlFolderPath(Bk) + Chp3 + ".m4a"
-                tab += `<a src='${src}' title='${Bk}${Chp}:${Vrs} ${relativePosi}' relativePosi=${relativePosi}> ${Vrs}</a>,`;
+                var bcv = `${Bk}${Chp}:${Vrs}`
+                
+                tab += `<a src='${src}' title='${bcv} ${relativePosi}' relativePosi=${relativePosi}> ${Vrs}</a>,`;
             }
             tab = tab.replace(/,$/,"")
             tab += "</td></tr>"
@@ -26,6 +28,9 @@ $(function () {
         var relativePosi = $(this).attr("relativePosi")
         $(".hili").removeClass("hili")
         $(this).addClass("hili")
+
+        var title = $(this).attr("title")
+        $("#playname").text(title)
 
         gvObj = null
         gvObj = document.getElementById('myAudio');
