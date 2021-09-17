@@ -23,14 +23,28 @@ $(function () {
     $("#myAudioFileNameSelect tbody").append(tab).find("a").on("click", function () {
         var audsrc = $(this).attr("src")
         var relativePosi = $(this).attr("relativePosi")
+        $(".hili").removeClass("hili")
+        $(this).addClass("hili")
 
+        gvObj = null
         gvObj = document.getElementById('myAudio');
-        gvObj.src = audsrc
-        gvObj.pause()
-        var maxlen = gvObj.duration;//(audio len in seconds)
-        console.log("maxlen", maxlen)
-        //gvObj.currentTime = maxlen * parseFloat(relativePosi)
-        gvObj.play()
-        alert(audsrc)
+
+        setTimeout(function () {
+            gvObj.src = audsrc
+            //gvObj.play()
+            gvObj.pause()
+        },0)
+        setTimeout(function () {
+            var maxlen = gvObj.duration;//(audio len in seconds)
+            console.log("maxlen", maxlen)
+            gvObj.currentTime = maxlen * parseFloat(relativePosi)
+            gvObj.play()
+            console.log(audsrc)
+        },1000)
+        
+
+        //
+       
+
     });
 });////////////////////////////////
