@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Psalm</title>
+  <title>AudioBible</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   <META name="viewport" content="width=device-witdh, initial-scale=1, maximum-scale=1, user-scale=0">
   </META>
@@ -50,7 +50,7 @@
 
 
 
-  <audio id="myAudio" controls width="400" height="100">
+  <audio id="myAudio" controls muted="false" autoplay="true" width="400" height="100">
     <source src="" type="audio/ogg">
     <source src="" type="audio/mpeg">
     Your browser does not support the audio element.
@@ -89,7 +89,7 @@
   <table id="myAudioFileNameSelect" border='1'>
     <option></option>
     <thead>
-      <th>Bk_Chp</th>
+      <th id="Bk_Chp_gen">Bk_Chp</th>
       <th>Verses</th>
      
     </thead>

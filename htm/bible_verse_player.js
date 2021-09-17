@@ -2,6 +2,62 @@
 
 $(function () {
     //console.log(NIV)
+    $("#Bk_Chp_gen").on("click", function () {
+        gen_bible_table()
+    })
+
+    gvObj = document.getElementById('myAudio');
+    //setTimeout(function () {
+        play_param_bcv()
+    //}, 1000)
+
+
+});////////////////////////////////
+
+function play_param_bcv() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    var bcv = urlParams.get('bcv');
+    if (bcv) {
+        console.log("bcv=", bcv)
+        bcv = bcv.replace(" ", "")
+        var mat = bcv.match("([0-9a-zA-Z]{3})([0-9]+)[\:]([0-9]+)")
+        console.log(mat)
+        var Bk = mat[1]
+        var Chp = mat[2]
+        var Vrs = mat[3]
+        var audsrc = Audio_Bible_Struct.findAudioUrlFolderPath(Bk, Chp)
+
+        var BibleObj = NIV
+        var relativePosi = BibleObj[Bk][Chp][Vrs]
+
+        var dis = `${bcv}  ${audsrc}`
+        $("#playname").text(dis)
+
+
+
+        setTimeout(function () {
+
+            gvObj.src = audsrc
+            gvObj.muted = false;
+
+            setTimeout(function () {
+                var maxlen = gvObj.duration;//(audio len in seconds)
+                if (!maxlen) {
+                    alert("try again")
+                    return;
+                }
+                console.log("maxlen", maxlen)
+                gvObj.currentTime = maxlen * parseFloat(relativePosi)
+                //gvObj.play()
+                console.log(audsrc)
+            }, 500)
+        }, 0)
+
+    }
+}
+
+function gen_bible_table() {
 
     var BibleObj = NIV
     var tab = ""
@@ -14,12 +70,12 @@ $(function () {
                 var relativePosi = BibleObj[Bk][Chp][Vrs]
                 //console.log()
                 var Chp3 = Chp.padStart(3, "0")
-                var src = Audio_Bible_Struct.findAudioUrlFolderPath(Bk, Chp) 
+                var src = Audio_Bible_Struct.findAudioUrlFolderPath(Bk, Chp)
                 var bcv = `${Bk}${Chp}:${Vrs}`
-                
+
                 tab += `<a src='${src}' title='${bcv} ${relativePosi}' relativePosi=${relativePosi}> ${Vrs}</a>,`;
             }
-            tab = tab.replace(/,$/,"")
+            tab = tab.replace(/,$/, "")
             tab += "</td></tr>"
         }
     }
@@ -41,7 +97,7 @@ $(function () {
             gvObj.pause()
             setTimeout(function () {
                 var maxlen = gvObj.duration;//(audio len in seconds)
-                if(!maxlen){
+                if (!maxlen) {
                     alert("try again")
                     return;
                 }
@@ -49,13 +105,13 @@ $(function () {
                 gvObj.currentTime = maxlen * parseFloat(relativePosi)
                 gvObj.play()
                 console.log(audsrc)
-            },500)
-        },0)
-        
-        
+            }, 500)
+        }, 0)
+
+
 
         //
-       
+
 
     });
-});////////////////////////////////
+}
